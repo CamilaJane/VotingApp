@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Result</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <%- include('../templates/header.ejs'); %>
+  <link rel="icon" href="favicon.png">
+  <script src="socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+
+<body>
+  	<span class= "two" id="span_url"><%= socketURL %></span>
+ 	<div class="container">
+ 		<div class="left">
+ 			<img src="https://i.pinimg.com/564x/9b/7a/0e/9b7a0e469da8874ba0359afabf158c91.jpg">
+ 			<span id="span_twice">0</span>
+ 		</div>
+ 		<div class="right">
+ 			<img src="https://i.pinimg.com/736x/99/b1/23/99b123251318ba826e06652d0156ccf4.jpg">
+ 			<span id="span_bp">0</span>
+ 		</div>
+	</div>
+
+	<script type="text/javascript">
+		var socket = io.connect($("#span_url").html());
+
+		socket.on('vote_twice', function(vote){
+			var addVote = parseInt(vote);
+			var count = parseInt($("#span_twice").html());
+
+			var newCount = count + addVote;
+			console.log(newCount);
+			$('#span_twice').html(newCount);
+		});
+
+		socket.on('vote_bp', function(vote){
+		var addVote = parseInt(vote);
+		var count = parseInt($("#span_bp").html());
+
+		var newCount = count + addVote;
+		console.log(newCount);
+		$('#span_bp').html(newCount);
+		});
+
+		socket.on('vote_twice')
+	</script>
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vote</title>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+  <%- include('../templates/header.ejs'); %>
+  <link rel="icon" href="favicon.png">
+  <script src="socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
+
+<body>
+
+  	<span class="one" id="span_url"><%= socketURL %></span>
+ 	<div class="container">
+ 		<div class="left">
+ 			<img src="https://i.pinimg.com/564x/9b/7a/0e/9b7a0e469da8874ba0359afabf158c91.jpg">
+ 			<button type="submit" id="btn_twice" placeholder="Vote">Seventeen</button>
+ 		</div>
+ 		<div class="right">
+ 			<img src="https://i.pinimg.com/736x/99/b1/23/99b123251318ba826e06652d0156ccf4.jpg">
+ 			<button type="submit" id="btn_bp" placeholder="Vote">BTS</button>
+ 		</div>
+	</div>
+
+	<script type="text/javascript">
+		var socket= io.connect($("#span_url").html());
+
+		$("#btn_twice").click(function(){
+			socket.emit('vote_twice', '1');
+			socket.emit('vote_bp', '0');
+			alert("Vote done for Seventeen.");
+		});
+		$("#btn_bp").click(function(){
+			socket.emit('vote_twice', '0');
+			socket.emit('vote_bp', '1');
+			alert("Vote done for BTS.");
+		});
+	</script>
+
+</body>
+</html>
